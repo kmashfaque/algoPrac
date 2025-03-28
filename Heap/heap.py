@@ -1,23 +1,34 @@
-def heapify(arr, n, i):
-    largest = i          # Assume the current node is the largest
-    left = 2 * i + 1     # Left child index left = 1 --->> 10
-    right = 2 * i + 2    # Right child index right = 2 --->> 3
-    
-    # Compare with left child
-    if left < n and arr[left] > arr[largest]:
-        largest = left
-    
-    # Compare with right child
-    if right < n and arr[right] > arr[largest]:
-        largest = right
-    
-    # If largest isn’t the current node, swap and recurse
-    if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]  # Swap
-        heapify(arr, n, largest)  # Recurse on the swapped child
+def merge(left,right):
+    res=[]
+    i=0
+    j=0
 
-# Test it
-arr = [10, 4, 3, 5, 1]
-n = len(arr)
-heapify(arr, n, 5)  # Heapify starting at root
-print(arr)  # Output: [10, 5, 3, 4, 1]
+    while i<len(left) and j<len(right):
+
+        if left[i] <right[j]:
+            res.append(left[i])
+            i+=1
+        else:
+            res.append(right[j])
+            j+=1
+        res.extend(left[i:])
+        res.extend(right[j:])
+        return res
+        
+def merge_sort(arr):
+    mid=len(arr)//2
+
+    left=arr[:mid]
+    right=arr[mid:]
+
+    left=merge_sort(left)
+    right=merge_sort(right)
+
+    return merge(left,right)
+
+
+
+
+arr=[12, 3,6,1,9,15,11,10]
+sorted_arr = merge_sort(arr)
+print(sorted_arr)

@@ -21,6 +21,8 @@ def merge(left, right):
     # Add any remaining items from right
     result_arr.extend(right[j:])    
     return result_arr
+
+
 def merge_sort(arr):
 
     if len(arr) <=1:
